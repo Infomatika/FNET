@@ -117,7 +117,13 @@
     #define FNET_CFG_CPU_S32R274    (0)
 #endif
 #ifndef FNET_CFG_CPU_LPC54628
-    #define FNET_CFG_CPU_LPC54628  	(0)
+    #define FNET_CFG_CPU_LPC54628   (0)
+#endif
+#ifndef FNET_CFG_CPU_STM32F107
+    #define FNET_CFG_CPU_STM32F107  (0)
+#endif
+#ifndef FNET_CFG_CPU_LM3S8962
+    #define FNET_CFG_CPU_LM3S8962   (0)
 #endif
 
 /*********** MFC ********************/
@@ -281,7 +287,7 @@
     #include "port/cpu/mpc/fnet_s32r274_config.h"
     #define FNET_CPU_STR    "S32R274"
 #endif
-
+                                                               
 /*********** NXP's LPC ********************/
 #if FNET_CFG_CPU_LPC54628 /* NXP's LPC54628 MCU */
     #ifdef FNET_CPU_STR
@@ -291,6 +297,25 @@
     #include "port/cpu/lpc/fnet_lpc54628_config.h"
     #define FNET_CPU_STR    "LPC54628"
 #endif
+
+/*********** STM32 ************************/
+#if FNET_CFG_CPU_STM32F107
+    #ifdef FNET_CPU_STR
+        #error "More than one CPU selected FNET_CFG_CPU_XXXX"
+    #endif
+
+    #include "port/cpu/stm32/fnet_stm32f107_config.h"
+    #define FNET_CPU_STR    "STM32F107"
+#endif
+
+/*********** TI LM3SXXXX *********/
+#if FNET_CFG_CPU_LM3S8962
+    #ifdef FNET_CPU_STR
+        #error "More than one CPU selected FNET_CFG_CPU_XXXX"
+    #endif
+
+    #include "port/cpu/lm3s/fnet_lm3s8962_config.h"
+    #define FNET_CPU_STR    "LM3S8962"
 
 /*-----------*/
 #ifndef FNET_CPU_STR
@@ -314,6 +339,14 @@
     #define FNET_LPC  (0)
 #endif
 
+#ifndef FNET_STM32
+    #define FNET_STM32  (0)
+#endif
+
+#ifndef FNET_LM3S
+    #define FNET_LM3S (0)
+#endif
+
 /*-----------*/
 #if FNET_MCF
     #include "port/cpu/mcf/fnet_mcf_config.h"
@@ -329,6 +362,14 @@
 
 #if FNET_LPC
     #include "port/cpu/lpc/fnet_lpc_config.h"
+#endif
+
+#if FNET_STM32
+    #include "port/cpu/stm32/fnet_stm32_config.h"
+#endif
+
+#if FNET_LM3S
+    #include "port/cpu/lm3s/fnet_lm3s_config.h"
 #endif
 
 /**************************************************************************/ /*!

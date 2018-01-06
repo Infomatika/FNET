@@ -45,6 +45,10 @@
     #include "lpc/fnet_lpc.h"
 #endif
 
+#if FNET_LM3S    /* TI Stellaris */
+    #include "lm3s/fnet_lm3s.h"
+#endif
+
 #include "stack/fnet_stdlib.h"
 
 /*! @addtogroup fnet_socket */
