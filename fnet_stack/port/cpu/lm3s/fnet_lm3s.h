@@ -910,11 +910,91 @@ typedef struct FNET_LM3S_MAC_MemMapPtr
   fnet_uint32_t  TS;                                /*!< Ethernet MAC Timer Support                                            */
 } volatile *FNET_LM3S_MAC_MemMapPtr;
 
+//**************************************************************************************************
+// ETHERNET MAC
+//**************************************************************************************************
+#define FNET_LM3S_MAC_RIS_PHYINT          0x00000040  // PHY Interrupt
+#define FNET_LM3S_MAC_RIS_MDINT           0x00000020  // MII Transaction Complete
+#define FNET_LM3S_MAC_RIS_RXER            0x00000010  // Receive Error
+#define FNET_LM3S_MAC_RIS_FOV             0x00000008  // FIFO Overrun
+#define FNET_LM3S_MAC_RIS_TXEMP           0x00000004  // Transmit FIFO Empty
+#define FNET_LM3S_MAC_RIS_TXER            0x00000002  // Transmit Error
+#define FNET_LM3S_MAC_RIS_RXINT           0x00000001  // Packet Received
+
+#define FNET_LM3S_MAC_IACK_PHYINT         0x00000040  // Clear PHY Interrupt
+#define FNET_LM3S_MAC_IACK_MDINT          0x00000020  // Clear MII Transaction Complete
+#define FNET_LM3S_MAC_IACK_RXER           0x00000010  // Clear Receive Error
+#define FNET_LM3S_MAC_IACK_FOV            0x00000008  // Clear FIFO Overrun
+#define FNET_LM3S_MAC_IACK_TXEMP          0x00000004  // Clear Transmit FIFO Empty
+#define FNET_LM3S_MAC_IACK_TXER           0x00000002  // Clear Transmit Error
+#define FNET_LM3S_MAC_IACK_RXINT          0x00000001  // Clear Packet Received
+
+#define FNET_LM3S_MAC_IM_PHYINTM          0x00000040  // Mask PHY Interrupt
+#define FNET_LM3S_MAC_IM_MDINTM           0x00000020  // Mask MII Transaction Complete
+#define FNET_LM3S_MAC_IM_RXERM            0x00000010  // Mask Receive Error
+#define FNET_LM3S_MAC_IM_FOVM             0x00000008  // Mask FIFO Overrun
+#define FNET_LM3S_MAC_IM_TXEMPM           0x00000004  // Mask Transmit FIFO Empty
+#define FNET_LM3S_MAC_IM_TXERM            0x00000002  // Mask Transmit Error
+#define FNET_LM3S_MAC_IM_RXINTM           0x00000001  // Mask Packet Received
+
+#define FNET_LM3S_MAC_RCTL_RSTFIFO        0x00000010  // Clear Receive FIFO
+#define FNET_LM3S_MAC_RCTL_BADCRC         0x00000008  // Enable Reject Bad CRC
+#define FNET_LM3S_MAC_RCTL_PRMS           0x00000004  // Enable Promiscuous Mode
+#define FNET_LM3S_MAC_RCTL_AMUL           0x00000002  // Enable Multicast Frames
+#define FNET_LM3S_MAC_RCTL_RXEN           0x00000001  // Enable Receiver
+
+#define FNET_LM3S_MAC_TCTL_DUPLEX         0x00000010  // Enable Duplex Mode
+#define FNET_LM3S_MAC_TCTL_CRC            0x00000004  // Enable CRC Generation
+#define FNET_LM3S_MAC_TCTL_PADEN          0x00000002  // Enable Packet Padding
+#define FNET_LM3S_MAC_TCTL_TXEN           0x00000001  // Enable Transmitter
+
+#define FNET_LM3S_MAC_DATA_TXDATA_M       0xFFFFFFFF  // Transmit FIFO Data
+#define FNET_LM3S_MAC_DATA_RXDATA_M       0xFFFFFFFF  // Receive FIFO Data
+#define FNET_LM3S_MAC_DATA_RXDATA_S       0
+#define FNET_LM3S_MAC_DATA_TXDATA_S       0
+
+#define FNET_LM3S_MAC_IA0_MACOCT4_M       0xFF000000  // MAC Address Octet 4
+#define FNET_LM3S_MAC_IA0_MACOCT3_M       0x00FF0000  // MAC Address Octet 3
+#define FNET_LM3S_MAC_IA0_MACOCT2_M       0x0000FF00  // MAC Address Octet 2
+#define FNET_LM3S_MAC_IA0_MACOCT1_M       0x000000FF  // MAC Address Octet 1
+#define FNET_LM3S_MAC_IA0_MACOCT4_S       24
+#define FNET_LM3S_MAC_IA0_MACOCT3_S       16
+#define FNET_LM3S_MAC_IA0_MACOCT2_S       8
+#define FNET_LM3S_MAC_IA0_MACOCT1_S       0
+
+#define FNET_LM3S_MAC_IA1_MACOCT6_M       0x0000FF00  // MAC Address Octet 6
+#define FNET_LM3S_MAC_IA1_MACOCT5_M       0x000000FF  // MAC Address Octet 5
+#define FNET_LM3S_MAC_IA1_MACOCT6_S       8
+#define FNET_LM3S_MAC_IA1_MACOCT5_S       0
+
+#define FNET_LM3S_MAC_THR_THRESH_M        0x0000003F  // Threshold Value
+#define FNET_LM3S_MAC_THR_THRESH_S        0
+
+#define FNET_LM3S_MAC_MCTL_REGADR_M       0x000000F8  // MII Register Address
+#define FNET_LM3S_MAC_MCTL_WRITE          0x00000002  // MII Register Transaction Type
+#define FNET_LM3S_MAC_MCTL_START          0x00000001  // MII Register Transaction Enable
+#define FNET_LM3S_MAC_MCTL_REGADR_S       3
+
+#define FNET_LM3S_MAC_MDV_DIV_M           0x000000FF  // Clock Divider
+#define FNET_LM3S_MAC_MDV_DIV_S           0
+
+#define FNET_LM3S_MAC_MTXD_MDTX_M         0x0000FFFF  // MII Register Transmit Data
+#define FNET_LM3S_MAC_MTXD_MDTX_S         0
+
+#define FNET_LM3S_MAC_MRXD_MDRX_M         0x0000FFFF  // MII Register Receive Data
+#define FNET_LM3S_MAC_MRXD_MDRX_S         0
+
+#define FNET_LM3S_MAC_NP_NPR_M            0x0000003F  // Number of Packets in Receive FIFO
+#define FNET_LM3S_MAC_NP_NPR_S            0
+
+#define FNET_LM3S_MAC_TR_NEWTX            0x00000001  // New Transmission
+
+/* MAC - Peripheral instance base addresses */
 #define FNET_LM3S_MAC0_BASE_PTR                     ((FNET_LM3S_MAC_MemMapPtr)0x40048000UL)
 
 
 #if defined(__cplusplus)
-extern "C" {
+extern "C" {                                                                                         
 #endif
 
 void fnet_lm3s_irq_enable(fnet_uint32_t irq_desc);

@@ -14,6 +14,9 @@
     #define FNET_CFG_CPU_ETH_RX_BUFS_M                  (4)
 #endif
 
+/* No cache. */
+#define FNET_CFG_CPU_CACHE                              (0)
+
 /* The Flash Memory not implemented yet */
 #define FNET_CFG_CPU_FLASH                              (0)
 
@@ -27,6 +30,10 @@
 
 /* The platform does not have second Ethernet Module.*/
 #define FNET_CFG_CPU_ETH1        			(0)
+
+/* No MIB.*/
+#undef FNET_CFG_MCF_ETH_MIB
+#define FNET_CFG_MCF_ETH_MIB                            (0)
 
 /* To improve the TX performance.*/
 #ifndef FNET_CFG_CPU_ETH_HW_TX_IP_CHECKSUM
