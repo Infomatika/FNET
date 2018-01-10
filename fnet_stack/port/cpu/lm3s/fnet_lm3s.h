@@ -990,7 +990,7 @@ typedef struct FNET_LM3S_MAC_MemMapPtr
 #define FNET_LM3S_MAC_TR_NEWTX            0x00000001  // New Transmission
 
 /* MAC - Peripheral instance base addresses */
-#define FNET_LM3S_MAC0_BASE_PTR                     ((FNET_LM3S_MAC_MemMapPtr)0x40048000UL)
+#define FNET_LM3S_MAC_BASE_PTR                      ((FNET_LM3S_MAC_MemMapPtr)0x40048000UL)
 
 
 #if defined(__cplusplus)
