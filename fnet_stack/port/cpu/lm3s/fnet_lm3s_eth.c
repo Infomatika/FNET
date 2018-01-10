@@ -21,6 +21,7 @@ fnet_netif_t fnet_cpu_eth0_if =
     .netif_api = &fnet_lm3s_api               /* Interface API */
 };
 
+<<<<<<< HEAD
 fnet_return_t fnet_lm3s_mii_write(fnet_uint32_t reg_addr, fnet_uint16_t data);
 fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data);
 
@@ -111,6 +112,47 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
         return FNET_ERR;
     }
     return FNET_OK;
+=======
+
+static uint16_t read_mii(uint8_t reg)
+{
+
+    // Wait for any pending transaction to complete.
+    while (0 != (MAC->MCTL & MAC_MCTL_START))
+    {
+    }
+
+    // Program the PHY register address and initiate the transaction.
+    MAC->MCTL = ((reg << MAC_MCTL_REGADR_S) & MAC_MCTL_REGADR_M) | MAC_MCTL_START;
+    
+    // Wait for the write transaction to complete.
+    while (0 != (MAC->MCTL & MAC_MCTL_START))
+    {
+    }
+
+    // Return the PHY data that was read.
+    return (MAC->MRXD & MAC_MRXD_MDRX_M);
+}
+
+
+static void write_mii(uint8_t reg, uint16_t data)
+{
+    // Wait for any pending transaction to complete.
+    while (0 != (MAC->MCTL & MAC_MCTL_START))
+    {
+    }
+
+    // Program the DATA to be written.
+    MAC->MTXD = data;
+    
+    // Program the PHY register address and initiate the transaction.
+    MAC->MCTL = ((reg << MAC_MCTL_REGADR_S) & MAC_MCTL_REGADR_M) | MAC_MCTL_WRITE | MAC_MCTL_START;
+    
+    // Wait for the write transaction to complete.
+    while (0 != (MAC->MCTL & MAC_MCTL_START))
+    {
+    }
+>>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 }
 
 
@@ -118,7 +160,11 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
 * DESCRIPTION: Ethernet IO initialization.
 *************************************************************************/
 #if FNET_CFG_CPU_ETH_IO_INIT
+<<<<<<< HEAD
 void fnet_eth_io_init(void)
+=======
+void fnet_eth_io_init()
+>>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 {
     /* Enable clocking for EMAC and EPHY */
     FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_EPHY0 | FNET_LM3S_SYSCTL_RCGC2_EMAC0;
@@ -140,7 +186,11 @@ void fnet_eth_io_init(void)
 *
 * DESCRIPTION: Ethernet Physical Transceiver initialization and/or reset.
 *************************************************************************/
+<<<<<<< HEAD
 void fnet_eth_phy_init(void)
+=======
+void fnet_eth_phy_init(fnet_fec_if_t *ethif)
+>>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 {
     fnet_uint16_t reg_value;
     fnet_uint16_t status_value = 0;
