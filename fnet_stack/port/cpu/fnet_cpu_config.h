@@ -96,7 +96,7 @@
     #define FNET_CFG_CPU_MK66FN2    (0)
 #endif
 #ifndef FNET_CFG_CPU_MK70FN1
-    #define FNET_CFG_CPU_MK70FN1   	(0)
+    #define FNET_CFG_CPU_MK70FN1    (0)
 #endif
 #ifndef FNET_CFG_CPU_MK60FN1
     #define FNET_CFG_CPU_MK60FN1    (0)
@@ -316,6 +316,7 @@
 
     #include "port/cpu/lm3s/fnet_lm3s8962_config.h"
     #define FNET_CPU_STR    "LM3S8962"
+#endif
 
 /*-----------*/
 #ifndef FNET_CPU_STR
@@ -607,7 +608,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH0
-    #define FNET_CFG_CPU_ETH0        	(1)
+    #define FNET_CFG_CPU_ETH0           (1)
 #endif
 
 /**************************************************************************/ /*!
@@ -619,7 +620,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH1
-    #define FNET_CFG_CPU_ETH1        	(0)
+    #define FNET_CFG_CPU_ETH1           (0)
 #endif
 
 /**************************************************************************/ /*!
@@ -657,7 +658,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH0_PHY_ADDR
-    #define FNET_CFG_CPU_ETH0_PHY_ADDR	(0U)
+    #define FNET_CFG_CPU_ETH0_PHY_ADDR  (0U)
 #endif
 
 /**************************************************************************/ /*!
@@ -668,7 +669,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH1_PHY_ADDR
-    #define FNET_CFG_CPU_ETH1_PHY_ADDR	(1U)
+    #define FNET_CFG_CPU_ETH1_PHY_ADDR  (1U)
 #endif
 
 /**************************************************************************/ /*!
@@ -681,7 +682,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH_PHY_ADDR_DISCOVER
-    #define FNET_CFG_CPU_ETH_PHY_ADDR_DISCOVER	(1)
+    #define FNET_CFG_CPU_ETH_PHY_ADDR_DISCOVER  (1)
 #endif
 
 /**************************************************************************/ /*!
@@ -828,7 +829,7 @@
  *                        In this case, it is configured Media Independent Interface (MII) mode.
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_ETH_RMII
-    #define FNET_CFG_CPU_ETH_RMII        		(0)
+    #define FNET_CFG_CPU_ETH_RMII               (0)
 #endif
 
 /**************************************************************************/ /*!
@@ -941,7 +942,7 @@
  * @showinitializer
  ******************************************************************************/
 #ifndef FNET_CFG_CPU_WIFI
-    #define FNET_CFG_CPU_WIFI        	                (0)
+    #define FNET_CFG_CPU_WIFI                           (0)
 #endif
 
 /**************************************************************************/ /*!

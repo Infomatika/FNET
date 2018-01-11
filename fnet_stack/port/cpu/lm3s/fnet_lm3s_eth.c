@@ -20,8 +20,6 @@ fnet_netif_t fnet_cpu_eth0_if =
     .netif_prv = &fnet_lm3s_eth0_if,          /* Points to interface specific data structure.*/
     .netif_api = &fnet_lm3s_api               /* Interface API */
 };
-
-<<<<<<< HEAD
 fnet_return_t fnet_lm3s_mii_write(fnet_uint32_t reg_addr, fnet_uint16_t data);
 fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data);
 
@@ -31,14 +29,14 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data);
 * data < Pointer to storage for the Data to be read from the PHY register (passed by reference)
 * Return FNET_ERR on failure, FNET_OK on success
 *************************************************************************/
-fnet_return_t fnet_lm3s_mii_read(fnet_lm3s_if_t *ethif, fnet_uint32_t reg_addr, fnet_uint16_t *data)
+fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
 {
     fnet_time_t       timeout;
 
     /* Wait for any pending transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
-        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & MAC_MCTL_START))
+        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & FNET_LM3S_MAC_MCTL_START))
         {
             break;
         }
@@ -54,7 +52,7 @@ fnet_return_t fnet_lm3s_mii_read(fnet_lm3s_if_t *ethif, fnet_uint32_t reg_addr, 
     /* Wait for the read transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
-        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & MAC_MCTL_START))
+        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & FNET_LM3S_MAC_MCTL_START))
         {
             break;
         }
@@ -75,14 +73,14 @@ fnet_return_t fnet_lm3s_mii_read(fnet_lm3s_if_t *ethif, fnet_uint32_t reg_addr, 
 * data < Data to be writen to the PHY register (passed by reference)
 * Return FNET_ERR on failure (timeout), FNET_OK on success
 *************************************************************************/
-fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
+fnet_return_t fnet_lm3s_mii_write(fnet_uint32_t reg_addr, fnet_uint16_t data)
 {
     fnet_time_t       timeout;
 
     /* Wait for any pending transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
-        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & MAC_MCTL_START))
+        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & FNET_LM3S_MAC_MCTL_START))
         {
             break;
         }
@@ -93,7 +91,7 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
     }
 
     /* Program the DATA to be written. */
-    FNET_LM3S_MAC_BASE_PTR->MTXD = *data;
+    FNET_LM3S_MAC_BASE_PTR->MTXD = data;
     
     /* Program the PHY register address and initiate the transaction. */
     FNET_LM3S_MAC_BASE_PTR->MCTL = ((reg_addr << FNET_LM3S_MAC_MCTL_REGADR_S) & FNET_LM3S_MAC_MCTL_REGADR_M) | 
@@ -102,7 +100,7 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
     /* Wait for the write transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
-        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & MAC_MCTL_START))
+        if (0 == (FNET_LM3S_MAC_BASE_PTR->MCTL & FNET_LM3S_MAC_MCTL_START))
         {
             break;
         }
@@ -112,47 +110,6 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
         return FNET_ERR;
     }
     return FNET_OK;
-=======
-
-static uint16_t read_mii(uint8_t reg)
-{
-
-    // Wait for any pending transaction to complete.
-    while (0 != (MAC->MCTL & MAC_MCTL_START))
-    {
-    }
-
-    // Program the PHY register address and initiate the transaction.
-    MAC->MCTL = ((reg << MAC_MCTL_REGADR_S) & MAC_MCTL_REGADR_M) | MAC_MCTL_START;
-    
-    // Wait for the write transaction to complete.
-    while (0 != (MAC->MCTL & MAC_MCTL_START))
-    {
-    }
-
-    // Return the PHY data that was read.
-    return (MAC->MRXD & MAC_MRXD_MDRX_M);
-}
-
-
-static void write_mii(uint8_t reg, uint16_t data)
-{
-    // Wait for any pending transaction to complete.
-    while (0 != (MAC->MCTL & MAC_MCTL_START))
-    {
-    }
-
-    // Program the DATA to be written.
-    MAC->MTXD = data;
-    
-    // Program the PHY register address and initiate the transaction.
-    MAC->MCTL = ((reg << MAC_MCTL_REGADR_S) & MAC_MCTL_REGADR_M) | MAC_MCTL_WRITE | MAC_MCTL_START;
-    
-    // Wait for the write transaction to complete.
-    while (0 != (MAC->MCTL & MAC_MCTL_START))
-    {
-    }
->>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 }
 
 
@@ -160,11 +117,7 @@ static void write_mii(uint8_t reg, uint16_t data)
 * DESCRIPTION: Ethernet IO initialization.
 *************************************************************************/
 #if FNET_CFG_CPU_ETH_IO_INIT
-<<<<<<< HEAD
 void fnet_eth_io_init(void)
-=======
-void fnet_eth_io_init()
->>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 {
     /* Enable clocking for EMAC and EPHY */
     FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_EPHY0 | FNET_LM3S_SYSCTL_RCGC2_EMAC0;
@@ -175,7 +128,7 @@ void fnet_eth_io_init()
     FNET_LM3S_PORTF_BASE_PTR->AFSEL  |= (1 << 2) | (1 << 3);
 
     /* Set the Ethernet management clock divider based on the system speed clock. */
-    FNET_LM3S_MAC0_BASE_PTR->MDV      = (FNET_CFG_CPU_CLOCK_HZ / 2) / 2500000;
+    FNET_LM3S_MAC_BASE_PTR->MDV       = (FNET_CFG_CPU_CLOCK_HZ / 2) / 2500000;
 }
 #endif /*FNET_CFG_CPU_ETH_IO_INIT*/
 
@@ -186,11 +139,7 @@ void fnet_eth_io_init()
 *
 * DESCRIPTION: Ethernet Physical Transceiver initialization and/or reset.
 *************************************************************************/
-<<<<<<< HEAD
 void fnet_eth_phy_init(void)
-=======
-void fnet_eth_phy_init(fnet_fec_if_t *ethif)
->>>>>>> 50b0e3a19ac7ae192c0891f59597f7345ee7bdbb
 {
     fnet_uint16_t reg_value;
     fnet_uint16_t status_value = 0;

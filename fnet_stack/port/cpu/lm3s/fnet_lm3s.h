@@ -685,7 +685,7 @@ typedef struct FNET_LM3S_SYSCTL_MemMap
 
 /* SYSCTL - Peripheral instance base addresses */
 /* Peripheral SYSCTL base pointer */
-#define FNET_LM3S_SYSCTL_BASE_PTR                       ((FNET_LM3S_SYSCTL_MemMap)0x400FE000UL)
+#define FNET_LM3S_SYSCTL_BASE_PTR                       ((FNET_LM3S_SYSCTL_MemMapPtr)0x400FE000UL)
 
 /* ----------------------------------------------------------------------------
    -- PORT
