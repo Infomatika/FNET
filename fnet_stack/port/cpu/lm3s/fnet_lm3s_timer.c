@@ -55,7 +55,7 @@ static void fnet_cpu_timer_handler_top(void *cookie)
 fnet_return_t fnet_cpu_timer_init( fnet_time_t period_ms )
 {
     fnet_return_t result;
-    fnet_uint32_t timeout, psc;
+    fnet_uint32_t reload, prescale;
 
     /* Install interrupt handler and enable interrupt in NVIC.
     */
@@ -74,35 +74,35 @@ fnet_return_t fnet_cpu_timer_init( fnet_time_t period_ms )
         /* Setup TimerA mode */
         FNET_CFG_CPU_TIMER_PTR->TAMR = FNET_LM3S_TIMER_TAMR_TAMR_PERIOD;
         /* Calculate the timeout value. */
-        timeout = period_ms * (FNET_CFG_CPU_CLOCK_HZ/1000);
-        psc = 1;
-        while (timeout & 0xffff0000)
+        reload = period_ms * (FNET_CFG_CPU_CLOCK_HZ/1000);
+        prescale = 1;
+        while ((reload/prescale) > 0xffff)
         {
-            timeout >>= 1;
-            psc <<= 1;
+            prescale++;
         }
-        /* Setup reload value */
-        FNET_CFG_CPU_TIMER_PTR->
+        reload /= prescale;
         /* Setup prescaler value */
-        FNET_CFG_CPU_TIMER_PTR->TAPMR = (timeout >> 16)
-
-        FNET_MK_PIT_LDVAL(FNET_CFG_CPU_TIMER_NUMBER) = timeout;
-
-        /* Enable the timer and enable interrupts */
-        FNET_MK_PIT_TCTRL(FNET_CFG_CPU_TIMER_NUMBER) |= FNET_MK_PIT_TCTRL_TEN_MASK | FNET_MK_PIT_TCTRL_TIE_MASK;
+        FNET_CFG_CPU_TIMER_PTR->TAPMR = prescale - 1;
+        /* Setup reload value */
+        FNET_CFG_CPU_TIMER_PTR->TAILR = reload - 1;
+        /* Enable interrupt on overflow */
+        FNET_CFG_CPU_TIMER_PTR->IMR   = FNET_LM3S_TIMER_IMR_TATOIM;
+        /* Enable the timer with stall in debugger */
+        FNET_CFG_CPU_TIMER_PTR->CTL   = FNET_LM3S_TIMER_CTL_TAEN | FNET_LM3S_TIMER_CTL_TASTALL;
     }
 
     return result;
 }
 
 /************************************************************************
-* DESCRIPTION: Relaeses TCP/IP hardware timer.
+* DESCRIPTION: Releses TCP/IP hardware timer.
 *************************************************************************/
 void fnet_cpu_timer_release( void )
 {
-    /* Disable the timer and disable interrupts */
-    FNET_MK_PIT_TCTRL(FNET_CFG_CPU_TIMER_NUMBER) &= ~(FNET_MK_PIT_TCTRL_TEN_MASK | FNET_MK_PIT_TCTRL_TIE_MASK);
-
+    /* disable interrupts */
+    FNET_CFG_CPU_TIMER_PTR->IMR = 0;
+    /* Disable the timer */
+    FNET_CFG_CPU_TIMER_PTR->CTL = 0;
     /* Uninstall interrupt handler.
      */
     fnet_isr_vector_release(FNET_CFG_CPU_TIMER_VECTOR_NUMBER);

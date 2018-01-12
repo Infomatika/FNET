@@ -993,6 +993,142 @@ typedef struct FNET_LM3S_MAC_MemMapPtr
 #define FNET_LM3S_MAC_BASE_PTR                      ((FNET_LM3S_MAC_MemMapPtr)0x40048000UL)
 
 
+//**************************************************************************************************
+// INTERNAL PHY
+//**************************************************************************************************
+#define FNET_LM3S_PHY_MR0                 0x00000000  // Ethernet PHY Management Register 0  - Control
+#define FNET_LM3S_PHY_MR1                 0x00000001  // Ethernet PHY Management Register 1  - Status
+#define FNET_LM3S_PHY_MR2                 0x00000002  // Ethernet PHY Management Register 2  - PHY Identifier 1
+#define FNET_LM3S_PHY_MR3                 0x00000003  // Ethernet PHY Management Register 3  - PHY Identifier 2
+#define FNET_LM3S_PHY_MR4                 0x00000004  // Ethernet PHY Management Register 4  - Auto-Negotiation Advertisement
+#define FNET_LM3S_PHY_MR5                 0x00000005  // Ethernet PHY Management Register 5  - Auto-Negotiation Link Partner Base Page Ability
+#define FNET_LM3S_PHY_MR6                 0x00000006  // Ethernet PHY Management Register 6  - Auto-Negotiation Expansion
+#define FNET_LM3S_PHY_MR16                0x00000010  // Ethernet PHY Management Register 16 - Vendor-Specific
+#define FNET_LM3S_PHY_MR17                0x00000011  // Ethernet PHY Management Register 17 - Mode Control/Status
+#define FNET_LM3S_PHY_MR18                0x00000012  // Ethernet PHY Management Register 18 - Diagnostic
+#define FNET_LM3S_PHY_MR19                0x00000013  // Ethernet PHY Management Register 19 - Transceiver Control
+#define FNET_LM3S_PHY_MR23                0x00000017  // Ethernet PHY Management Register 23 - LED Configuration
+#define FNET_LM3S_PHY_MR24                0x00000018  // Ethernet PHY Management Register 24 - MDI/MDIX Control
+
+#define FNET_LM3S_PHY_MR0_RESET           0x00008000  // Reset Registers
+#define FNET_LM3S_PHY_MR0_LOOPBK          0x00004000  // Loopback Mode
+#define FNET_LM3S_PHY_MR0_SPEEDSL         0x00002000  // Speed Select
+#define FNET_LM3S_PHY_MR0_ANEGEN          0x00001000  // Auto-Negotiation Enable
+#define FNET_LM3S_PHY_MR0_PWRDN           0x00000800  // Power Down
+#define FNET_LM3S_PHY_MR0_ISO             0x00000400  // Isolate
+#define FNET_LM3S_PHY_MR0_RANEG           0x00000200  // Restart Auto-Negotiation
+#define FNET_LM3S_PHY_MR0_DUPLEX          0x00000100  // Set Duplex Mode
+#define FNET_LM3S_PHY_MR0_COLT            0x00000080  // Collision Test
+
+#define FNET_LM3S_PHY_MR1_100X_F          0x00004000  // 100BASE-TX Full-Duplex Mode
+#define FNET_LM3S_PHY_MR1_100X_H          0x00002000  // 100BASE-TX Half-Duplex Mode
+#define FNET_LM3S_PHY_MR1_10T_F           0x00001000  // 10BASE-T Full-Duplex Mode
+#define FNET_LM3S_PHY_MR1_10T_H           0x00000800  // 10BASE-T Half-Duplex Mode
+#define FNET_LM3S_PHY_MR1_MFPS            0x00000040  // Management Frames with Preamble Suppressed
+#define FNET_LM3S_PHY_MR1_ANEGC           0x00000020  // Auto-Negotiation Complete
+#define FNET_LM3S_PHY_MR1_RFAULT          0x00000010  // Remote Fault
+#define FNET_LM3S_PHY_MR1_ANEGA           0x00000008  // Auto-Negotiation
+#define FNET_LM3S_PHY_MR1_LINK            0x00000004  // Link Made
+#define FNET_LM3S_PHY_MR1_JAB             0x00000002  // Jabber Condition
+#define FNET_LM3S_PHY_MR1_EXTD            0x00000001  // Extended Capabilities
+        
+#define FNET_LM3S_PHY_MR2_OUI_M           0x0000FFFF  // Organizationally Unique Identifier[21:6]
+#define FNET_LM3S_PHY_MR2_OUI_S           0
+
+#define FNET_LM3S_PHY_MR3_OUI_M           0x0000FC00  // Organizationally Unique Identifier[5:0]
+#define FNET_LM3S_PHY_MR3_MN_M            0x000003F0  // Model Number
+#define FNET_LM3S_PHY_MR3_RN_M            0x0000000F  // Revision Number
+#define FNET_LM3S_PHY_MR3_OUI_S           10
+#define FNET_LM3S_PHY_MR3_MN_S            4
+#define FNET_LM3S_PHY_MR3_RN_S            0
+
+#define FNET_LM3S_PHY_MR4_NP              0x00008000  // Next Page
+#define FNET_LM3S_PHY_MR4_RF              0x00002000  // Remote Fault
+#define FNET_LM3S_PHY_MR4_A3              0x00000100  // Technology Ability Field [3]
+#define FNET_LM3S_PHY_MR4_A2              0x00000080  // Technology Ability Field [2]
+#define FNET_LM3S_PHY_MR4_A1              0x00000040  // Technology Ability Field [1]
+#define FNET_LM3S_PHY_MR4_A0              0x00000020  // Technology Ability Field [0]
+#define FNET_LM3S_PHY_MR4_S_M             0x0000001F  // Selector Field
+#define FNET_LM3S_PHY_MR4_S_S             0
+
+#define FNET_LM3S_PHY_MR5_NP              0x00008000  // Next Page
+#define FNET_LM3S_PHY_MR5_ACK             0x00004000  // Acknowledge
+#define FNET_LM3S_PHY_MR5_RF              0x00002000  // Remote Fault
+#define FNET_LM3S_PHY_MR5_A_M             0x00001FE0  // Technology Ability Field
+#define FNET_LM3S_PHY_MR5_S_M             0x0000001F  // Selector Field
+#define FNET_LM3S_PHY_MR5_S_8023          0x00000001  // IEEE Std 802.3
+#define FNET_LM3S_PHY_MR5_S_8029          0x00000002  // IEEE Std 802.9 ISLAN-16T
+#define FNET_LM3S_PHY_MR5_S_8025          0x00000003  // IEEE Std 802.5
+#define FNET_LM3S_PHY_MR5_S_1394          0x00000004  // IEEE Std 1394
+#define FNET_LM3S_PHY_MR5_A_S             5
+       
+#define FNET_LM3S_PHY_MR6_PDF             0x00000010  // Parallel Detection Fault
+#define FNET_LM3S_PHY_MR6_LPNPA           0x00000008  // Link Partner is Next Page Able
+#define FNET_LM3S_PHY_MR6_PRX             0x00000002  // New Page Received
+#define FNET_LM3S_PHY_MR6_LPANEGA         0x00000001  // Link Partner is Auto-Negotiation Able
+
+#define FNET_LM3S_PHY_MR16_RPTR           0x00008000  // Repeater Mode
+#define FNET_LM3S_PHY_MR16_INPOL          0x00004000  // Interrupt Polarity
+#define FNET_LM3S_PHY_MR16_TXHIM          0x00001000  // Transmit High Impedance Mode
+#define FNET_LM3S_PHY_MR16_SQEI           0x00000800  // SQE Inhibit Testing
+#define FNET_LM3S_PHY_MR16_NL10           0x00000400  // Natural Loopback Mode
+#define FNET_LM3S_PHY_MR16_APOL           0x00000020  // Auto-Polarity Disable
+#define FNET_LM3S_PHY_MR16_RVSPOL         0x00000010  // Receive Data Polarity
+#define FNET_LM3S_PHY_MR16_PCSBP          0x00000002  // PCS Bypass
+#define FNET_LM3S_PHY_MR16_RXCC           0x00000001  // Receive Clock Control
+
+#define FNET_LM3S_PHY_MR17_JABBER_IE      0x00008000  // Jabber Interrupt Enable
+#define FNET_LM3S_PHY_MR17_RXER_IE        0x00004000  // Receive Error Interrupt Enable
+#define FNET_LM3S_PHY_MR17_PRX_IE         0x00002000  // Page Received Interrupt Enable
+#define FNET_LM3S_PHY_MR17_PDF_IE         0x00001000  // Parallel Detection Fault Interrupt Enable
+#define FNET_LM3S_PHY_MR17_LPACK_IE       0x00000800  // LP Acknowledge Interrupt Enable
+#define FNET_LM3S_PHY_MR17_LSCHG_IE       0x00000400  // Link Status Change Interrupt Enable
+#define FNET_LM3S_PHY_MR17_RFAULT_IE      0x00000200  // Remote Fault Interrupt Enable
+#define FNET_LM3S_PHY_MR17_ANEGCOMP_IE    0x00000100  // Auto-Negotiation Complete Interrupt Enable
+#define FNET_LM3S_PHY_MR17_JABBER_INT     0x00000080  // Jabber Event Interrupt
+#define FNET_LM3S_PHY_MR17_RXER_INT       0x00000040  // Receive Error Interrupt
+#define FNET_LM3S_PHY_MR17_PRX_INT        0x00000020  // Page Receive Interrupt
+#define FNET_LM3S_PHY_MR17_PDF_INT        0x00000010  // Parallel Detection Fault Interrupt
+#define FNET_LM3S_PHY_MR17_LPACK_INT      0x00000008  // LP Acknowledge Interrupt
+#define FNET_LM3S_PHY_MR17_LSCHG_INT      0x00000004  // Link Status Change Interrupt
+#define FNET_LM3S_PHY_MR17_RFAULT_INT     0x00000002  // Remote Fault Interrupt
+#define FNET_LM3S_PHY_MR17_ANEGCOMP_INT   0x00000001  // Auto-Negotiation Complete Interrupt
+
+#define FNET_LM3S_PHY_MR18_ANEGF          0x00001000  // Auto-Negotiation Failure
+#define FNET_LM3S_PHY_MR18_DPLX           0x00000800  // Duplex Mode
+#define FNET_LM3S_PHY_MR18_RATE           0x00000400  // Rate
+#define FNET_LM3S_PHY_MR18_RXSD           0x00000200  // Receive Detection
+#define FNET_LM3S_PHY_MR18_RX_LOCK        0x00000100  // Receive PLL Lock
+        
+#define FNET_LM3S_PHY_MR19_TXO_M          0x0000C000  // Transmit Amplitude Selection
+#define FNET_LM3S_PHY_MR19_TXO_00DB       0x00000000  // Gain set for 0.0dB of insertion loss
+#define FNET_LM3S_PHY_MR19_TXO_04DB       0x00004000  // Gain set for 0.4dB of insertion loss
+#define FNET_LM3S_PHY_MR19_TXO_08DB       0x00008000  // Gain set for 0.8dB of insertion loss
+#define FNET_LM3S_PHY_MR19_TXO_12DB       0x0000C000  // Gain set for 1.2dB of insertion loss
+
+#define FNET_LM3S_PHY_MR23_LED1_M         0x000000F0  // LED1 Source
+#define FNET_LM3S_PHY_MR23_LED1_LINK      0x00000000  // Link OK
+#define FNET_LM3S_PHY_MR23_LED1_RXTX      0x00000010  // RX or TX Activity (Default LED1)
+#define FNET_LM3S_PHY_MR23_LED1_100       0x00000050  // 100BASE-TX mode
+#define FNET_LM3S_PHY_MR23_LED1_10        0x00000060  // 10BASE-T mode
+#define FNET_LM3S_PHY_MR23_LED1_DUPLEX    0x00000070  // Full-Duplex
+#define FNET_LM3S_PHY_MR23_LED1_LINKACT   0x00000080  // Link OK & Blink=RX or TX Activity
+#define FNET_LM3S_PHY_MR23_LED0_M         0x0000000F  // LED0 Source
+#define FNET_LM3S_PHY_MR23_LED0_LINK      0x00000000  // Link OK (Default LED0)
+#define FNET_LM3S_PHY_MR23_LED0_RXTX      0x00000001  // RX or TX Activity
+#define FNET_LM3S_PHY_MR23_LED0_100       0x00000005  // 100BASE-TX mode
+#define FNET_LM3S_PHY_MR23_LED0_10        0x00000006  // 10BASE-T mode
+#define FNET_LM3S_PHY_MR23_LED0_DUPLEX    0x00000007  // Full-Duplex
+#define FNET_LM3S_PHY_MR23_LED0_LINKACT   0x00000008  // Link OK & Blink=RX or TX Activity
+
+#define FNET_LM3S_PHY_MR24_PD_MODE        0x00000080  // Parallel Detection Mode
+#define FNET_LM3S_PHY_MR24_AUTO_SW        0x00000040  // Auto-Switching Enable
+#define FNET_LM3S_PHY_MR24_MDIX           0x00000020  // Auto-Switching Configuration
+#define FNET_LM3S_PHY_MR24_MDIX_CM        0x00000010  // Auto-Switching Complete
+#define FNET_LM3S_PHY_MR24_MDIX_SD_M      0x0000000F  // Auto-Switching Seed
+#define FNET_LM3S_PHY_MR24_MDIX_SD_S      0
+
+
 #if defined(__cplusplus)
 extern "C" {                                                                                         
 #endif

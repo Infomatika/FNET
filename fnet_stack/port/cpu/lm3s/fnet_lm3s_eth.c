@@ -1,3 +1,5 @@
+#include "fnet_config.h"
+
 #include "fnet.h"
 #if FNET_LM3S && FNET_CFG_CPU_ETH0
 
@@ -144,14 +146,14 @@ void fnet_eth_phy_init(void)
     fnet_uint16_t reg_value;
     fnet_uint16_t status_value = 0;
 
-    fnet_fec_mii_read(ethif, FNET_FEC_MII_REG_CR, &reg_value);
+    fnet_lm3s_mii_read(FNET_LM3S_PHY_MR0, &reg_value);
 
     /* ANE ENABLED:*/
-    fnet_fec_mii_write(ethif, FNET_FEC_MII_REG_CR, (fnet_uint16_t)(reg_value | FNET_FEC_MII_REG_CR_ANE | FNET_FEC_MII_REG_CR_ANE_RESTART));
+    fnet_lm3s_mii_write(FNET_LM3S_PHY_MR0, (fnet_uint16_t)(reg_value | FNET_LM3S_PHY_MR0_ANEGEN | FNET_LM3S_PHY_MR0_RANEG));
 
     while (status_value != 0x0040)
     {
-        fnet_fec_mii_read(ethif, FNET_FEC_MII_REG_SR, &status_value);
+        fnet_lm3s_mii_read(FNET_LM3S_PHY_MR1, &status_value);
         status_value &= 0x0040;
     }
 }
