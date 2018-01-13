@@ -1,5 +1,5 @@
 #pragma language=extended
-#include "common.h"
+#include "lm3s8962.h"
 
 
 #ifndef STACK_SIZE
@@ -174,34 +174,31 @@ static void __before_program_start(void)
 {
     uint32_t i;
     
-    /* silicon errata workaround - rise core voltage */
-    SYSCTL->LDOPCTL = SYSCTL_LDOPCTL_2_75V;
+    /* silicon errata workaround - rise core voltage to 2.75V */
+    SYSCTL->LDOPCTL = 0x0000001B;
     __DSB();
   
     /* start crystal oscillator */
-    SYSCTL->RCC &= ~ SYSCTL_RCC_MOSCDIS;
+    SYSCTL->RCC &= 0xFFFFFFFE;
     __DSB();
     delay_loop(524288);
 
-    /* select crystal frequency, switch CPU clocking to crystal and enable PLL */ 
-    SYSCTL->RCC = ((SYSCTL->RCC & 
-                    ~(SYSCTL_RCC_ACG | SYSCTL_RCC_PWRDN | SYSCTL_RCC_XTAL_M | SYSCTL_RCC_OSCSRC_M)) | 
-                    SYSCTL_RCC_XTAL_8MHZ | SYSCTL_RCC_OSCSRC_MAIN);
+    /* select 8MHz crystal frequency, switch CPU clocking to crystal and enable PLL */ 
+    SYSCTL->RCC = (SYSCTL->RCC & 0xF7FFDC0F) | 0x00000380;
     __DSB();
     delay_loop(524288);
 
     /* wait for PLL lock */ 
     for (i = 32768; i > 0; i--)
     {
-        if (SYSCTL->RIS & SYSCTL_RIS_PLLLRIS)
+        if (SYSCTL->RIS & 0x00000040)
         {
             break;
         }
     }
 
     /* switch clocking to PLL/4, so 50MHz */ 
-    SYSCTL->RCC = ((SYSCTL->RCC & ~(SYSCTL_RCC_BYPASS | SYSCTL_RCC_SYSDIV_M)) |
-                    SYSCTL_RCC_SYSDIV_4 | SYSCTL_RCC_USESYSDIV);
+    SYSCTL->RCC = (SYSCTL->RCC & 0xF87FF7FF) | 0x01C00000;
     __DSB();
     delay_loop(300);  
 
@@ -209,7 +206,7 @@ static void __before_program_start(void)
     SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk | SCB_SHCSR_BUSFAULTENA_Msk | SCB_SHCSR_USGFAULTENA_Msk;
 
     /* set 3-bit preemption priority */ 
-    SCB->AIRCR = 0x05FA0000 | 0x00000300; //SCB_AIRCR_PRIGROUP3
+    SCB->AIRCR = 0x05FA0000 | 0x00000300; 
 
     /* enable DWT subsystem */ 
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
@@ -218,7 +215,7 @@ static void __before_program_start(void)
     __DSB();
     delay_loop(300);
 
-    board_init();
+    //board_init();
 
     __iar_program_start(); 
 }

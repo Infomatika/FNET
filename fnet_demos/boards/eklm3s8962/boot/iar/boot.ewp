@@ -2636,6 +2636,9 @@
   <group>
     <name>startup</name>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\lm3s8962.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\startup_ewarm.c</name>
     </file>
   </group>

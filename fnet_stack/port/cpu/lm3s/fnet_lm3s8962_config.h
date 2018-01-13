@@ -18,7 +18,7 @@
 #define FNET_CFG_CPU_CACHE                              (0)
 
 /* The Flash Memory not implemented yet */
-#define FNET_CFG_CPU_FLASH                              (0)
+#define FNET_CFG_CPU_FLASH                              (1)
 
 /*/ Smallest logical block which can be erased independently.*/
 #define FNET_CFG_CPU_FLASH_PAGE_SIZE                    (1024)         /* 1KB sector.*/
@@ -29,7 +29,7 @@
 #define FNET_CFG_CPU_FLASH_SIZE                         (1024 * 256)    /* 256 KB */
 
 /* The platform does not have second Ethernet Module.*/
-#define FNET_CFG_CPU_ETH1        			(0)
+#define FNET_CFG_CPU_ETH1                   (0)
 
 /* No MIB.*/
 #undef FNET_CFG_MCF_ETH_MIB

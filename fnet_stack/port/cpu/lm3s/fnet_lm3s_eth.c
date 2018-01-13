@@ -3,6 +3,7 @@
 #include "fnet.h"
 #if FNET_LM3S && FNET_CFG_CPU_ETH0
 
+
 #define FNET_LM3S_MII_TIMEOUT            (0x10000U)   /* Timeout counter for MII communications.*/
 
 /************************************************************************
@@ -50,7 +51,6 @@ fnet_return_t fnet_lm3s_mii_read(fnet_uint32_t reg_addr, fnet_uint16_t *data)
     /* Program the PHY register address and initiate the transaction. */
     FNET_LM3S_MAC_BASE_PTR->MCTL = ((reg_addr << FNET_LM3S_MAC_MCTL_REGADR_S) & FNET_LM3S_MAC_MCTL_REGADR_M) | 
                                     FNET_LM3S_MAC_MCTL_START;
-    __DSB();
     /* Wait for the read transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
@@ -98,7 +98,6 @@ fnet_return_t fnet_lm3s_mii_write(fnet_uint32_t reg_addr, fnet_uint16_t data)
     /* Program the PHY register address and initiate the transaction. */
     FNET_LM3S_MAC_BASE_PTR->MCTL = ((reg_addr << FNET_LM3S_MAC_MCTL_REGADR_S) & FNET_LM3S_MAC_MCTL_REGADR_M) | 
                                     FNET_LM3S_MAC_MCTL_WRITE | FNET_LM3S_MAC_MCTL_START;
-    __DSB();
     /* Wait for the write transaction to complete. */
     for (timeout = 0U; timeout < FNET_LM3S_MII_TIMEOUT; timeout++)
     {
@@ -121,10 +120,12 @@ fnet_return_t fnet_lm3s_mii_write(fnet_uint32_t reg_addr, fnet_uint16_t data)
 #if FNET_CFG_CPU_ETH_IO_INIT
 void fnet_eth_io_init(void)
 {
+    volatile int i;
+    
     /* Enable clocking for EMAC and EPHY */
     FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_EPHY0 | FNET_LM3S_SYSCTL_RCGC2_EMAC0;
-    __DSB();
-
+    /* short delay for EMAC clocking actually start */
+    for (i=0; i < 10; i++);
     /* set EPHY LED pins */
     FNET_LM3S_PORTF_BASE_PTR->DEN    |= (1 << 2) | (1 << 3);
     FNET_LM3S_PORTF_BASE_PTR->AFSEL  |= (1 << 2) | (1 << 3);
