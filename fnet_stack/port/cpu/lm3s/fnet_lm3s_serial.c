@@ -57,8 +57,9 @@ static inline void fnet_cpu_serial_gpio_init(fnet_index_t port_number)
         case 0: /* UART0 - PA0, PA1 */
             /* Enable clock */
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_GPIOA;
-            FNET_LM3S_SYSCTL_BASE_PTR->RCGC1 |= FNET_LM3S_SYSCTL_RCGC1_UART0; 
-            __DSB();
+            FNET_LM3S_SYSCTL_BASE_PTR->RCGC1 |= FNET_LM3S_SYSCTL_RCGC1_UART0;
+            (void)FNET_LM3S_SYSCTL_BASE_PTR->RCGC2;
+//            __DSB();
             /* Configure pins */
             FNET_LM3S_PORTA_BASE_PTR->DEN    |= (1 << 0) | (1 << 1);
             FNET_LM3S_PORTA_BASE_PTR->DIR    |= (1 << 1);
@@ -69,7 +70,8 @@ static inline void fnet_cpu_serial_gpio_init(fnet_index_t port_number)
             /* Enable clock */
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_GPIOD;
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC1 |= FNET_LM3S_SYSCTL_RCGC1_UART1; 
-            __DSB();
+            (void)FNET_LM3S_SYSCTL_BASE_PTR->RCGC2;
+//            __DSB();
             /* Configure pins */
             FNET_LM3S_PORTD_BASE_PTR->DEN    |= (1 << 2) | (1 << 3);
             FNET_LM3S_PORTD_BASE_PTR->DIR    |= (1 << 3);
@@ -80,7 +82,8 @@ static inline void fnet_cpu_serial_gpio_init(fnet_index_t port_number)
             /* Enable clock */
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_GPIOG;
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC1 |= FNET_LM3S_SYSCTL_RCGC1_UART2; 
-            __DSB();
+            (void)FNET_LM3S_SYSCTL_BASE_PTR->RCGC2;
+//            __DSB();
             /* Configure pins */
             FNET_LM3S_PORTG_BASE_PTR->DEN    |= (1 << 0) | (1 << 1);
             FNET_LM3S_PORTG_BASE_PTR->DIR    |= (1 << 1);                          
@@ -108,16 +111,18 @@ void fnet_cpu_serial_init(fnet_index_t port_number, fnet_uint32_t baud_rate)
     * change settings.
     */
     uartch->CTL = 0;
-    /* disable UART interrupt */
+    /* disable UART interrupts */
     uartch->IM  = 0;
-    __DSB();
+    (void)uartch->CTL;
+//    __DSB();
     /* UART Clock divisor */
     temp = (FNET_CFG_CPU_CLOCK_HZ * 4) / baud_rate + 32;
     uartch->IBRD = temp >> 6;
     uartch->FBRD = temp & 0x3F;
     /* Initialize the UART for 8N1 operation, FIFO enabled */
     uartch->LCRH = FNET_LM3S_UART_LCRH_FEN | FNET_LM3S_UART_LCRH_WLEN_8;
-    __DSB();
+    (void)uartch->CTL;
+//    __DSB();
     /* Enable transmitter, receiver and UART itself */
     uartch->CTL = FNET_LM3S_UART_CTL_RXE | FNET_LM3S_UART_CTL_TXE | FNET_LM3S_UART_CTL_UARTEN;
 }

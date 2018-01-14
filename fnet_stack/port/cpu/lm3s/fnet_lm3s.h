@@ -690,7 +690,7 @@ typedef struct FNET_LM3S_SYSCTL_MemMap
 /* ----------------------------------------------------------------------------
    -- PORT
    ---------------------------------------------------------------------------- */
-typedef struct FNET_LM3S_PORT_MemMapPtr
+typedef struct FNET_LM3S_PORT_MemMap
 {
   fnet_uint32_t  RESERVED0[255];
   fnet_uint32_t  DATA;                              /*!< GPIO Data                                                             */
@@ -743,7 +743,7 @@ typedef struct FNET_LM3S_PORT_MemMapPtr
    ---------------------------------------------------------------------------- */
 
 /* TIMER - Peripheral register structure */
-typedef struct FNET_LM3S_TIMER_MemMapPtr
+typedef struct FNET_LM3S_TIMER_MemMap
 {
   fnet_uint32_t  CFG;                               /*!< GPTM Configuration                                                    */
   fnet_uint32_t  TAMR;                              /*!< GPTM Timer A Mode                                                     */
@@ -883,7 +883,7 @@ typedef struct FNET_LM3S_TIMER_MemMapPtr
 * Fast Ethernet Controller (MAC)
 *********************************************************************/
 
-typedef struct FNET_LM3S_MAC_MemMapPtr
+typedef struct FNET_LM3S_MAC_MemMap
 {                                    
   union {
     fnet_uint32_t  MAC_ALT_IACK;                    /*!< Ethernet MAC Raw Interrupt Status/Acknowledge                         */
@@ -1127,6 +1127,61 @@ typedef struct FNET_LM3S_MAC_MemMapPtr
 #define FNET_LM3S_PHY_MR24_MDIX_CM        0x00000010  // Auto-Switching Complete
 #define FNET_LM3S_PHY_MR24_MDIX_SD_M      0x0000000F  // Auto-Switching Seed
 #define FNET_LM3S_PHY_MR24_MDIX_SD_S      0
+
+/* FCTL - Peripheral register structure */
+typedef struct FNET_LM3S_FCTL_MemMap
+{                                    /*!< FLASH_CTRL Structure                                                  */
+  fnet_uint32_t  FMA;                               /*!< Flash Memory Address                                                  */
+  fnet_uint32_t  FMD;                               /*!< Flash Memory Data                                                     */
+  fnet_uint32_t  FMC;                               /*!< Flash Memory Control                                                  */
+  fnet_uint32_t  FCRIS;                             /*!< Flash Controller Raw Interrupt Status                                 */
+  fnet_uint32_t  FCIM;                              /*!< Flash Controller Interrupt Mask                                       */
+  fnet_uint32_t  FCMISC;                            /*!< Flash Controller Masked Interrupt Status and Clear                    */
+  fnet_uint32_t  RESERVED0[1098];
+  fnet_uint32_t  USECRL;                            /*!< USec Reload                                                           */
+  fnet_uint32_t  RESERVED1[35];
+  fnet_uint32_t  FLASH_ALT_USERDBG;                 /*!< User Debug                                                            */
+  fnet_uint32_t  RESERVED2[3];
+  fnet_uint32_t  USERREG0;                          /*!< User Register 0                                                       */
+  fnet_uint32_t  USERREG1;                          /*!< User Register 1                                                       */
+  fnet_uint32_t  RESERVED3[6];
+  fnet_uint32_t  FMPRE0;                            /*!< Flash Memory Protection Read Enable 0                                 */
+  fnet_uint32_t  FMPRE1;                            /*!< Flash Memory Protection Read Enable 1                                 */
+  fnet_uint32_t  FMPRE2;                            /*!< Flash Memory Protection Read Enable 2                                 */
+  fnet_uint32_t  FMPRE3;                            /*!< Flash Memory Protection Read Enable 3                                 */
+  fnet_uint32_t  RESERVED4[124];
+  fnet_uint32_t  FMPPE0;                            /*!< Flash Memory Protection Program Enable 0                              */
+  fnet_uint32_t  FMPPE1;                            /*!< Flash Memory Protection Program Enable 1                              */
+  fnet_uint32_t  FMPPE2;                            /*!< Flash Memory Protection Program Enable 2                              */
+  fnet_uint32_t  FMPPE3;                            /*!< Flash Memory Protection Program Enable 3                              */
+} volatile *FNET_LM3S_FCTL_MemMapPtr;
+
+#define FNET_LM3S_FCTL_FMA_OFFSET_M      0x0003FFFF  // Address Offset
+#define FNET_LM3S_FCTL_FMA_OFFSET_S      0
+
+#define FNET_LM3S_FCTL_FMD_DATA_M        0xFFFFFFFF  // Data Value
+#define FNET_LM3S_FCTL_FMD_DATA_S        0
+
+#define FNET_LM3S_FCTL_FMC_WRKEY         0xA4420000  // FLASH write key
+#define FNET_LM3S_FCTL_FMC_COMT          0x00000008  // Commit Register Value
+#define FNET_LM3S_FCTL_FMC_MERASE        0x00000004  // Mass Erase Flash Memory
+#define FNET_LM3S_FCTL_FMC_ERASE         0x00000002  // Erase a Page of Flash Memory
+#define FNET_LM3S_FCTL_FMC_WRITE         0x00000001  // Write a Word into Flash Memory
+
+#define FNET_LM3S_FCTL_FCRIS_PRIS        0x00000002  // Programming Raw Interrupt Status
+#define FNET_LM3S_FCTL_FCRIS_ARIS        0x00000001  // Access Raw Interrupt Status
+
+#define FNET_LM3S_FCTL_FCIM_PMASK        0x00000002  // Programming Interrupt Mask
+#define FNET_LM3S_FCTL_FCIM_AMASK        0x00000001  // Access Interrupt Mask
+
+#define FNET_LM3S_FCTL_FCMISC_PMISC      0x00000002  // Programming Masked Interrupt Status and Clear
+#define FNET_LM3S_FCTL_FCMISC_AMISC      0x00000001  // Access Masked Interrupt Status and Clear
+
+#define FNET_LM3S_FCTL_USECRL_M          0x000000FF  // Microsecond Reload Value
+#define FNET_LM3S_FCTL_USECRL_S          0
+
+/* FCTL - Peripheral instance base addresses */
+#define FNET_LM3S_FCTL_BASE_PTR                     ((FNET_LM3S_FCTL_MemMapPtr)0x400FD000UL)
 
 
 #if defined(__cplusplus)

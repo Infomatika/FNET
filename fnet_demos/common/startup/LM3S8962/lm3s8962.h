@@ -80,12 +80,19 @@ typedef enum {
   FLASH_CTRL_IRQn               =  29,              /*!<  29  FLASH_CTRL                                                       */
   GPIOF_IRQn                    =  30,              /*!<  30  GPIOF                                                            */
   GPIOG_IRQn                    =  31,              /*!<  31  GPIOG                                                            */
+  GPIOH_IRQn                    =  32,              /*!<  32  GPIOH                                                            */
+  UART2_IRQn                    =  33,              /*!<  33  UART2                                                            */
+  SSI1_IRQn                     =  34,              /*!<  34  SSI1                                                             */
   TIMER3A_IRQn                  =  35,              /*!<  35  TIMER3A                                                          */
   TIMER3B_IRQn                  =  36,              /*!<  36  TIMER3B                                                          */
+  I2C1_IRQn                     =  37,              /*!<  37  I2C1                                                             */
   QEI1_IRQn                     =  38,              /*!<  38  QEI1                                                             */
   CAN0_IRQn                     =  39,              /*!<  39  CAN0                                                             */
+  CAN1_IRQn                     =  40,              /*!<  40  CAN1                                                             */
+  CAN2_IRQn                     =  41,              /*!<  41  CAN2                                                             */
   ETH_IRQn                      =  42,              /*!<  42  ETH                                                              */
   HIB_IRQn                      =  43,              /*!<  43  HIB                                                              */
+  USB0_IRQn                     =  44,              /*!<  44  USB0                                                             */
   PWM0_3_IRQn                   =  45               /*!<  45  PWM0_3                                                           */
 } IRQn_Type;
 
@@ -107,8 +114,6 @@ typedef enum {
 /** @} */ /* End of group Configuration_of_CMSIS */
 
 #include <core_cm3.h>                               /*!< Cortex-M3 processor and core peripherals                              */
-//#include "system_LM3S.h"                            /*!< LM3S8962 System                                                       */
-
 
 /* ================================================================================ */
 /* ================       Device Specific Peripheral Section       ================ */
@@ -718,9 +723,12 @@ typedef struct {                                    /*!< SYSCTL Structure       
 #define GPIOC_BASE                      0x40006000UL
 #define GPIOD_BASE                      0x40007000UL
 #define SSI0_BASE                       0x40008000UL
+#define SSI1_BASE                       0x40009000UL
 #define UART0_BASE                      0x4000C000UL
 #define UART1_BASE                      0x4000D000UL
+#define UART2_BASE                      0x4000E000UL
 #define I2C0_BASE                       0x40020000UL
+#define I2C1_BASE                       0x40021000UL
 #define GPIOE_BASE                      0x40024000UL
 #define GPIOF_BASE                      0x40025000UL
 #define GPIOG_BASE                      0x40026000UL
@@ -734,6 +742,8 @@ typedef struct {                                    /*!< SYSCTL Structure       
 #define ADC0_BASE                       0x40038000UL
 #define COMP_BASE                       0x4003C000UL
 #define CAN0_BASE                       0x40040000UL
+#define CAN1_BASE                       0x40041000UL
+#define CAN2_BASE                       0x40042000UL
 #define MAC_BASE                        0x40048000UL
 #define HIB_BASE                        0x400FC000UL
 #define FLASH_CTRL_BASE                 0x400FD000UL
@@ -750,9 +760,12 @@ typedef struct {                                    /*!< SYSCTL Structure       
 #define GPIOC                           ((GPIOA_Type              *) GPIOC_BASE)
 #define GPIOD                           ((GPIOA_Type              *) GPIOD_BASE)
 #define SSI0                            ((SSI0_Type               *) SSI0_BASE)
+#define SSI1                            ((SSI0_Type               *) SSI1_BASE)
 #define UART0                           ((UART0_Type              *) UART0_BASE)
 #define UART1                           ((UART0_Type              *) UART1_BASE)
+#define UART2                           ((UART0_Type              *) UART2_BASE)
 #define I2C0                            ((I2C0_Type               *) I2C0_BASE)
+#define I2C1                            ((I2C0_Type               *) I2C1_BASE)
 #define GPIOE                           ((GPIOA_Type              *) GPIOE_BASE)
 #define GPIOF                           ((GPIOA_Type              *) GPIOF_BASE)
 #define GPIOG                           ((GPIOA_Type              *) GPIOG_BASE)
@@ -766,6 +779,8 @@ typedef struct {                                    /*!< SYSCTL Structure       
 #define ADC0                            ((ADC0_Type               *) ADC0_BASE)
 #define COMP                            ((COMP_Type               *) COMP_BASE)
 #define CAN0                            ((CAN0_Type               *) CAN0_BASE)
+#define CAN1                            ((CAN0_Type               *) CAN1_BASE)
+#define CAN2                            ((CAN0_Type               *) CAN2_BASE)
 #define MAC                             ((MAC_Type                *) MAC_BASE)
 #define HIB                             ((HIB_Type                *) HIB_BASE)
 #define FLASH_CTRL                      ((FLASH_CTRL_Type         *) FLASH_CTRL_BASE)

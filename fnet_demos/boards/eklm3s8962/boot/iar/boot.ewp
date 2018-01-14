@@ -315,7 +315,7 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$/../../../../common/startup/CMSIS</state>
           <state>$PROJ_DIR$/../../../../common/startup</state>
-          <state>$PROJ_DIR$/../../../../common/startup/MK64F12</state>
+          <state>$PROJ_DIR$/../../../../common/startup/LM3S8962</state>
           <state>$PROJ_DIR$/..</state>
           <state>$PROJ_DIR$/../../../../src/boot</state>
           <state>$PROJ_DIR$/../../../../../fnet_stack</state>
@@ -2114,6 +2114,9 @@
             <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_eth.c</name>
           </file>
           <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_flash.c</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_low.S</name>
           </file>
           <file>
@@ -2639,7 +2642,7 @@
       <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\lm3s8962.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\startup_ewarm.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\startup_lm3s.c</name>
     </file>
   </group>
 </project>
