@@ -7,7 +7,7 @@
 #endif
 
 #ifndef NVIC_INTERRUPT_MAX
-#    define NVIC_INTERRUPT_MAX        (16 + 54)
+#    define NVIC_INTERRUPT_MAX        (16 + PWM0_3_IRQn)
 #endif
 
 /* exception stack frame - useful for debugging */ 
@@ -112,16 +112,7 @@ __root const irq_handler_t __vector_table[NVIC_INTERRUPT_MAX+1] @ ".intvec" =
     ethernet_isr,                           /* 42 ETH_IRQn           */
     default_isr,                            /* 43 HIB_IRQn           */
     default_isr,                            /* 44 USB0_IRQn          */
-    default_isr,                            /* 45 PWM0_3_IRQn        */
-    default_isr,                            /* 46 UDMA_IRQn          */
-    default_isr,                            /* 47 UDMAERR_IRQn       */
-    default_isr,                            /* 48 ADC1SS0_IRQn       */
-    default_isr,                            /* 49 ADC1SS1_IRQn       */
-    default_isr,                            /* 50 ADC1SS2_IRQn       */
-    default_isr,                            /* 51 ADC1SS3_IRQn       */
-    default_isr,                            /* 52 I2S0_IRQn          */
-    default_isr,                            /* 53 EPI0_IRQn          */
-    default_isr,                            /* 54 GPIOJ_IRQn         */
+    default_isr                             /* 45 PWM0_3_IRQn        */
 };              
                 
 
