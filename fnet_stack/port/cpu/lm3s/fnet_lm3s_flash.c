@@ -70,8 +70,8 @@ fnet_return_t fnet_cpu_flash_write( fnet_uint8_t *dest, const fnet_uint8_t *data
     FNET_LM3S_FCTL_BASE_PTR->FMD = *(fnet_uint32_t *)data;
     FNET_LM3S_FCTL_BASE_PTR->FMC = FNET_LM3S_FCTL_FMC_WRKEY | FNET_LM3S_FCTL_FMC_WRITE;
 
-    /* Wait erase complete. */
-    while (FNET_LM3S_FCTL_BASE_PTR->FMC & FNET_LM3S_FCTL_FMC_ERASE)
+    /* Wait write complete. */
+    while (FNET_LM3S_FCTL_BASE_PTR->FMC & FNET_LM3S_FCTL_FMC_WRITE)
     {
     }
     fnet_cpu_irq_enable(irq_desc);
