@@ -52,7 +52,7 @@
 #if FNET_CFG_COMP_IAR
     #pragma segment="fapp_params"
     #pragma location="fapp_params"
-    #if FNET_MK
+    #if FNET_MK || FNET_LM3S
         __root
     #endif
 #endif
