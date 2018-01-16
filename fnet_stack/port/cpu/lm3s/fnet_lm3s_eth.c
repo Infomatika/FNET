@@ -152,11 +152,35 @@ void fnet_eth_phy_init(void)
     /* ANE ENABLED:*/
     fnet_lm3s_mii_write(FNET_LM3S_PHY_MR0, (fnet_uint16_t)(reg_value | FNET_LM3S_PHY_MR0_ANEGEN | FNET_LM3S_PHY_MR0_RANEG));
 
-    while (status_value != 0x0040)
+    while ((status_value & FNET_LM3S_PHY_MR1_ANEGC) == 0x0000)
     {
         fnet_lm3s_mii_read(FNET_LM3S_PHY_MR1, &status_value);
-        status_value &= 0x0040;
     }
 }
+
+/************************************************************************
+* DESCRIPTION: Link status.
+*************************************************************************/
+static fnet_bool_t fnet_lm3s_is_connected(fnet_netif_t *netif)
+{
+    fnet_uint16_t   data;
+    fnet_lm3s_if_t *fec_if;
+    fnet_bool_t     res = FNET_FALSE;
+
+    
+    fec_if = (fnet_lm3s_if_t *)((fnet_eth_if_t *)(netif->netif_prv))->eth_prv;
+
+    if (fnet_lm3s_mii_read(/*fec_if, */FNET_LM3S_PHY_MR1, &data) == FNET_OK)
+    {
+        res = (((data & FNET_LM3S_PHY_MR1_LINK) != 0u) ? FNET_TRUE : FNET_FALSE);
+    }
+    else /* Return previous value in case read PHY error. */
+    {
+        res = netif->is_connected;
+    }
+
+    return res;
+}
+
 
 #endif /* FNET_LM3S && FNET_CFG_CPU_ETH0 */
