@@ -733,11 +733,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\TexasInstruments\LM3S8962.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\iar\LM3S8962_Debug.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -2117,9 +2117,6 @@
             <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_flash.c</name>
           </file>
           <file>
-            <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_low.S</name>
-          </file>
-          <file>
             <name>$PROJ_DIR$\..\..\..\..\..\fnet_stack\port\cpu\lm3s\fnet_lm3s_serial.c</name>
           </file>
           <file>
@@ -2638,11 +2635,14 @@
   </group>
   <group>
     <name>startup</name>
+    <group>
+      <name>iar</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\iar\startup_lm3s.c</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\lm3s8962.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\common\startup\LM3S8962\startup_lm3s.c</name>
     </file>
   </group>
 </project>

@@ -37,7 +37,7 @@
 
 /* Code section. */
 #if FNET_MCF    
-	/* CW compiler adds leading underscores to assembly symbols.*/
+    /* CW compiler adds leading underscores to assembly symbols.*/
     #define FNET_COMP_ASM_PREFIX(x) _##x
 #endif      
 
@@ -52,27 +52,27 @@ label   .equ    value
 
 /* Extern. */
 FNET_COMP_ASM_EXTERN:  .macro  value
-	.extern  value
+    .extern  value
         .endm
         
 /* Global.*/
 FNET_COMP_ASM_GLOBAL: .macro label
-	.global label
-	.endm
+    .global label
+    .endm
             
 /* Align. */
 FNET_COMP_ASM_ALIGN:  .macro  value
-	.align  value
+    .align  value
         .endm
 
 /* DC.W */
 FNET_COMP_ASM_DC16:   .macro value
-	.word value
-	.endm
+    .word value
+    .endm
 /* DC.L */
 FNET_COMP_ASM_DC32:    .macro value
-	.long value
-	.endm
+    .long value
+    .endm
 
 #define FNET_COMP_ASM_LABEL(x)    FNET_COMP_ASM_PREFIX(x):
 
@@ -93,31 +93,31 @@ FNET_COMP_ASM_DC32:    .macro value
 /* Macro for the equate directive */
 FNET_COMP_ASM_EQU MACRO label, value
 label   EQU  value
-	ENDM
+    ENDM
 
 /* Extern. */
 FNET_COMP_ASM_EXTERN  MACRO value
-	EXTERN  value
-	ENDM
+    EXTERN  value
+    ENDM
 
 /* Global.*/
 FNET_COMP_ASM_GLOBAL MACRO label
-	PUBLIC label
-	ENDM
+    PUBLIC label
+    ENDM
 
 /* Align. */
 FNET_COMP_ASM_ALIGN  MACRO value
-	ALIGN  value
-	ENDM
+    ALIGN  value
+    ENDM
 /*DC.W*/
 FNET_COMP_ASM_DC16  MACRO value
-	DC16 value
-	ENDM
+    DC16 value
+    ENDM
 
 /* DC.L */
 FNET_COMP_ASM_DC32 MACRO value
-	DC32 value
-	ENDM
+    DC32 value
+    ENDM
 
 
 /* Code section. */
@@ -125,7 +125,7 @@ FNET_COMP_ASM_DC32 MACRO value
     #define FNET_COMP_ASM_CODE  RSEG CODE 
 #endif      
 
-#if FNET_MK || FNET_LPC     
+#if FNET_MK || FNET_LPC || FNET_LM3S    
     #define FNET_COMP_ASM_CODE  RSEG .text:CODE
 #endif          
 
@@ -153,44 +153,44 @@ RAMBAR    DEFINE  0xC05
 #define FNET_COMP_ASM_PREFIX(x) x
 
 /* Macro for the equate directive */
-	MACRO
-	FNET_COMP_ASM_EQU $label, $value
+    MACRO
+    FNET_COMP_ASM_EQU $label, $value
 $label   EQU  $value
-	MEND
+    MEND
 
 /* Extern. */
-	MACRO
-	FNET_COMP_ASM_EXTERN  $value
-	EXTERN  $value   ; IMPORT
-	MEND
+    MACRO
+    FNET_COMP_ASM_EXTERN  $value
+    EXTERN  $value   ; IMPORT
+    MEND
 
 /* Global.*/
-	MACRO
-	FNET_COMP_ASM_GLOBAL $label
-	EXPORT $label
-	MEND
+    MACRO
+    FNET_COMP_ASM_GLOBAL $label
+    EXPORT $label
+    MEND
 
 /* Align. */
-	MACRO
-	FNET_COMP_ASM_ALIGN $value
-	ALIGN  $value
-	MEND
+    MACRO
+    FNET_COMP_ASM_ALIGN $value
+    ALIGN  $value
+    MEND
 /*DC.W*/
-	MACRO
-	FNET_COMP_ASM_DC16  $value
-	DCWU $value
-	MEND
+    MACRO
+    FNET_COMP_ASM_DC16  $value
+    DCWU $value
+    MEND
 
 /* DC.L */
-	MACRO
-	FNET_COMP_ASM_DC32 $value
-	DCDU $value
-	MEND
+    MACRO
+    FNET_COMP_ASM_DC32 $value
+    DCDU $value
+    MEND
 
 #define FNET_COMP_ASM_LABEL(x)    FNET_COMP_ASM_PREFIX(x)
 
 /* Code section. */
-#define FNET_COMP_ASM_CODE	AREA    |.text|, CODE, READONLY
+#define FNET_COMP_ASM_CODE  AREA    |.text|, CODE, READONLY
 
 
 /*END - END directive is placed after the last

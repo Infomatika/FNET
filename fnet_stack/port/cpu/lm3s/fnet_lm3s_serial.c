@@ -47,7 +47,7 @@ fnet_int32_t fnet_cpu_serial_getchar (fnet_index_t port_number)
 }
 
 
-#if FNET_CFG_CPU_SERIAL_IO_INIT	
+#if FNET_CFG_CPU_SERIAL_IO_INIT 
 static inline void fnet_cpu_serial_gpio_init(fnet_index_t port_number)
 {
     /* Enable the pins for the selected UART */
@@ -78,7 +78,7 @@ static inline void fnet_cpu_serial_gpio_init(fnet_index_t port_number)
             FNET_LM3S_PORTD_BASE_PTR->AFSEL  |= (1 << 2) | (1 << 3);
             break;
 
-        case 2: /* UART2 (absent on LM3S8962) - PG0, PG1 */
+        case 2: /* UART2 (available on LM3S6965, absent on LM3S8962) - PG0, PG1 */
             /* Enable clock */
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC2 |= FNET_LM3S_SYSCTL_RCGC2_GPIOG;
             FNET_LM3S_SYSCTL_BASE_PTR->RCGC1 |= FNET_LM3S_SYSCTL_RCGC1_UART2; 
@@ -99,7 +99,7 @@ void fnet_cpu_serial_init(fnet_index_t port_number, fnet_uint32_t baud_rate)
     FNET_LM3S_UART_MemMapPtr  uartch;
     fnet_uint32_t             temp; 
 
-#if FNET_CFG_CPU_SERIAL_IO_INIT	
+#if FNET_CFG_CPU_SERIAL_IO_INIT 
     /* Init GPIO.*/
     fnet_cpu_serial_gpio_init(port_number);
 #endif

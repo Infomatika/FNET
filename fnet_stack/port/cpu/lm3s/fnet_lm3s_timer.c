@@ -111,22 +111,22 @@ void fnet_cpu_timer_release( void )
 /* If vector table is in ROM, pre-install FNET ISR for the Timer Event interrupt*/
 #if !FNET_CFG_CPU_VECTOR_TABLE_IS_IN_RAM
 #if FNET_CFG_CPU_TIMER_NUMBER == 0
-void lm3s_timer_isr (void)
+void timer0a_isr (void)
 {
     FNET_ISR_HANDLER();
 }
 #elif FNET_CFG_CPU_TIMER_NUMBER == 1
-void TIMER1A_Handler (void)
+void timer1a_isr (void)
 {
     FNET_ISR_HANDLER();
 }
 #elif FNET_CFG_CPU_TIMER_NUMBER == 2
-void TIMER2A_Handler (void)
+void timer2a_isr (void)
 {
     FNET_ISR_HANDLER();
 }
 #elif FNET_CFG_CPU_TIMER_NUMBER == 3
-void TIMER3A_Handler (void)
+void timer3a_isr (void)
 {
     FNET_ISR_HANDLER();
 }

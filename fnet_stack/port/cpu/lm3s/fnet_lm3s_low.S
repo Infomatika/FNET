@@ -30,14 +30,14 @@
  FNET_COMP_ASM_GLOBAL FNET_COMP_ASM_PREFIX(fnet_lm3s_irq_enable)
  FNET_COMP_ASM_GLOBAL FNET_COMP_ASM_PREFIX(fnet_lm3s_irq_disable)
  
-FNET_COMP_ASM_LABEL(fnet_mk_irq_enable)
+FNET_COMP_ASM_LABEL(fnet_lm3s_irq_enable)
     /* cpsie i */    /* Enable the priority configurable interrupts (0=>PRIMASK).*/
-    msr primask, r0	 /* Set PRIMASK */
+    msr primask, r0  /* Set PRIMASK */
     bx lr
 
-FNET_COMP_ASM_LABEL(fnet_mk_irq_disable)
+FNET_COMP_ASM_LABEL(fnet_lm3s_irq_disable)
     mrs r0, primask     /* Save PRIMASK */
-    cpsid i     	/* Turn off the priority configurable interrupts (1=>PRIMASK).*/
+    cpsid i         /* Turn off the priority configurable interrupts (1=>PRIMASK).*/
     bx lr
 
 #endif /*FNET_LM3S*/ 
